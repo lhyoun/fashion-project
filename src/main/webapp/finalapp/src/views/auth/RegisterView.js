@@ -49,26 +49,41 @@ const RegisterView = () => {
 
           <Formik
             initialValues={{
-              email: '',
-              firstName: '',
-              lastName: '',
+              userName: '',
               password: '',
+              name: '',
+              email: '',
               policy: false
             }}
+
             validationSchema={
               Yup.object().shape({
-                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                firstName: Yup.string().max(255).required('First name is required'),
-                lastName: Yup.string().max(255).required('Last name is required'),
+                userName: Yup.string().max(255).required('ID is required'),
                 password: Yup.string().max(255).required('password is required'),
-                policy: Yup.boolean().oneOf([true], 'This field must be checked')
+                name: Yup.string().max(255).required('name is required'),
+                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+                policy: Yup.boolean().oneOf(  [true], 'This field must be checked')
               })
             }
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
 
-              fetch(`http://localhost:8000/aaa`, {
-                method: "get",
+            onSubmit={(data) => {
+              //navigate('/app/dashboard', { replace: true });
+
+              console.log(data);
+
+              let person = {
+                username: data.userName,
+                password: data.password,
+                email: data.email,
+                name: data.name,
+              }
+
+              fetch(`http://localhost:8000/joinProc`, {
+                method: "POST",
+		        		body: JSON.stringify(person),
+		        		headers: {
+		        			'Content-Type': "application/json; charset=utf-8"
+		        		}
               }).then((res) => {
                 console.log(res);
                 return res;
@@ -105,43 +120,21 @@ const RegisterView = () => {
                     Use your email to create new account
                   </Typography>
                 </Box>
+
+
                 <TextField
-                  error={Boolean(touched.firstName && errors.firstName)}
+                  error={Boolean(touched.userName && errors.userName)}
                   fullWidth
-                  helperText={touched.firstName && errors.firstName}
-                  label="First name"
+                  helperText={touched.userName && errors.userName}
+                  label="ID"
                   margin="normal"
-                  name="firstName"
+                  name="userName"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.firstName}
+                  value={values.userName}
                   variant="outlined"
                 />
-                <TextField
-                  error={Boolean(touched.lastName && errors.lastName)}
-                  fullWidth
-                  helperText={touched.lastName && errors.lastName}
-                  label="Last name"
-                  margin="normal"
-                  name="lastName"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.lastName}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(touched.email && errors.email)}
-                  fullWidth
-                  helperText={touched.email && errors.email}
-                  label="Email Address"
-                  margin="normal"
-                  name="email"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="email"
-                  value={values.email}
-                  variant="outlined"
-                />
+
                 <TextField
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
@@ -155,6 +148,38 @@ const RegisterView = () => {
                   value={values.password}
                   variant="outlined"
                 />
+
+                <TextField
+                  error={Boolean(touched.name && errors.name)}
+                  fullWidth
+                  helperText={touched.name && errors.name}
+                  label="name"
+                  margin="normal"
+                  name="name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.name}
+                  variant="outlined"
+                />
+
+                <TextField
+                  error={Boolean(touched.email && errors.email)}
+                  fullWidth
+                  helperText={touched.email && errors.email}
+                  label="Email Address"
+                  margin="normal"
+                  name="email"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="email"
+                  value={values.email}
+                  variant="outlined"
+                />
+
+
+
+
+
                 <Box
                   alignItems="center"
                   display="flex"

@@ -22,6 +22,12 @@ public class Myfilter1 implements Filter{
 		HttpServletResponse ss = (HttpServletResponse)response;
 		ss.setHeader("Access-Control-Allow-Origin", "*");
 		
+		ss.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+		ss.setHeader("Access-Control-Max-Age", "3600");
+		ss.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+		ss.setHeader("Access-Control-Allow-Credentials", "true");
+		ss.setHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin,Access-Control-Allow-Credentials");
+
 		System.out.println(TAG+"doFilter()탐");
 		chain.doFilter(request, response);
 		// 이걸 넣어줘야 다음 필터도 탄다
