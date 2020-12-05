@@ -30,7 +30,7 @@ public class JwtAuthenticationFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println("JwtAuthenticationFilter 작동");
+		System.out.println("로그인 요청 - jwt발급 - JwtAuthenticationFilter 작동");
 		
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;

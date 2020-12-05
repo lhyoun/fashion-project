@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{	// Adapter : �
 			.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 			.anyRequest().permitAll()					// 다른 주소는 인증 필요x
 			.and()
-			.formLogin().loginPage("/loginForm")		// LoginPage의 주소를 설정한다
+			.formLogin().loginPage("http://localhost:3000/login")		// LoginPage의 주소를 설정한다
 			.loginProcessingUrl("/loginProc")
 			.defaultSuccessUrl("/");	// 성공하면 가는 페이지?	
 	}

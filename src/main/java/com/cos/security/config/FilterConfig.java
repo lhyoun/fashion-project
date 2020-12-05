@@ -27,21 +27,21 @@ public class FilterConfig{
 		System.out.println("서버 실행 될 때 실행");
 		FilterRegistrationBean<Myfilter1> bean = new FilterRegistrationBean<>(new Myfilter1());
 		// 이렇게 하면 스프링 필터에 등록이 된다 (실행 되면)
-		
+		 
 		bean.addUrlPatterns("/*");	// 주소 요청이 있을 때 마다 실행
 		bean.setOrder(0);	// 낮은 번호부터 실행됨
 		return bean;
 		// return 해주는 이유 : 만들어진 빈이 IoC로 등록이 되어야 해서
 	}
-
+	/*
 	@Bean
 	public FilterRegistrationBean<JwtAuthenticationFilter> jwtAuthenticationFilter(){
 		System.out.println("JwtAuthenticationFilter 필터 등록");
 		FilterRegistrationBean<JwtAuthenticationFilter> bean = 
 				new FilterRegistrationBean<>(new JwtAuthenticationFilter(userRepository));
-		bean.addUrlPatterns("/login");
+		bean.addUrlPatterns("/loginProc");
 		bean.setOrder(1);
-		return bean;
+		return bean; 
 	}
 	
 	@Bean
@@ -53,7 +53,7 @@ public class FilterConfig{
 		bean.setOrder(2);
 		return bean;
 	}
-	
+	*/
 }
 // 일단 IoC로 등록되어서 메모리에는 뜨고 함수는 강제로 실행되어서? IoC에 등록
 

@@ -20,6 +20,18 @@ public class Myfilter1 implements Filter{
 		
 		HttpServletResponse resp = (HttpServletResponse)response;
 		
+		
+		
+		resp.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+		resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+		resp.setHeader("Access-Control-Max-Age", "3600");
+		resp.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+		resp.setHeader("Access-Control-Allow-Credentials", "true");
+		resp.setHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin,Access-Control-Allow-Credentials");
+
+        
+        /*
+        
 		resp.setHeader("Access-Control-Allow-Origin", "*");
 		resp.setHeader("Access-Control-Allow-Methods", "*");
 		resp.setHeader("Access-Control-Allow-Headers", "*");
@@ -32,6 +44,7 @@ public class Myfilter1 implements Filter{
 		//Last-Modified
 		//Pragma
 		resp.setHeader("Access-Control-Expose-Headers", "*");
+		*/
 		
 		System.out.println(TAG+"doFilter()탐");
 		chain.doFilter(request, response);

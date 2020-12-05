@@ -43,15 +43,45 @@ const LoginView = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'demo@devias.io',
-              password: 'Password123'
+              username: '',
+              password: ''
             }}
             validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+              username: Yup.string().max(255).required('username is required'),
               password: Yup.string().max(255).required('Password is required')
             })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={(data) => {
+              //navigate('/app/dashboard', { replace: true });
+
+            var params = {
+              username: 'test@gmail.com',
+              password: 'Password!',
+              //grant_type: 'password'
+            };
+            
+            var formData = new FormData();
+            
+            for (var k in params) {
+                formData.append(k, params[k]);
+            }
+              let person = {
+                username: data.userName,
+                password: data.password,
+              }
+
+              fetch(`http://localhost:8000/loginProc`, {
+                method: "post",
+		        		body: formData,
+		        		headers: {
+		        			'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8",
+		        		}
+              }).then((res) => {
+                console.log(res);
+                return res;
+              }).then((res) => {
+                console.log(res);
+
+              });
             }}
           >
             {({
@@ -127,19 +157,21 @@ const LoginView = () => {
                     or login with email address
                   </Typography>
                 </Box>
+
                 <TextField
-                  error={Boolean(touched.email && errors.email)}
+                  error={Boolean(touched.username && errors.username)}
                   fullWidth
-                  helperText={touched.email && errors.email}
-                  label="Email Address"
+                  helperText={touched.username && errors.username}
+                  label="ID"
                   margin="normal"
-                  name="email"
+                  name="username"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  type="email"
-                  value={values.email}
+                  //type="text"
+                  value={values.username}
                   variant="outlined"
                 />
+
                 <TextField
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
@@ -153,6 +185,8 @@ const LoginView = () => {
                   value={values.password}
                   variant="outlined"
                 />
+
+
                 <Box my={2}>
                   <Button
                     color="primary"
